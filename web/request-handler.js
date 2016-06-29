@@ -17,6 +17,10 @@ exports.handleRequest = function (req, res) {
     headers['Content-Type'] = 'text/css';
     res.writeHead(200, headers);
     httpHelpers.serveAssets ( res, 'web/public/styles.css', content => res.end (content) );
+  } else if ( req.url.includes ( 'inputHandler' ) ) {
+    headers['Content-Type'] = 'text/javascript';
+    res.writeHead(200, headers);
+    httpHelpers.serveAssets ( res, 'web/inputHandler.js', content => res.end (content) );
   } else {
     // ERROR
     console.log( 'error' );
