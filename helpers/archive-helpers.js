@@ -24,14 +24,30 @@ exports.initialize = function(pathsObj) {
 
 // The following function names are provided to you to suggest how you might
 // modularize your code. Keep it clean!
+var urlStorage;
 
 exports.readListOfUrls = function() {
+  fs.readFile(exports.paths.list, 'utf-8', ( error, content ) => {
+    if ( error ) {
+      throw error;
+    } else {
+      urlStorage = ( JSON.parse('{' + content + '}') );
+      console.log(urlStorage);
+    }
+  });
 };
 
-exports.isUrlInList = function() {
+exports.readListOfUrls();
+
+exports.isUrlInList = function( url ) {
+  return urlStorage[url];
 };
 
-exports.addUrlToList = function() {
+exports.addUrlToList = function( url ) {
+  urlStorage[url] = url;
+
+  // fs write ... JSON.
+  // fs append
 };
 
 exports.isUrlArchived = function() {
@@ -39,3 +55,4 @@ exports.isUrlArchived = function() {
 
 exports.downloadUrls = function() {
 };
+

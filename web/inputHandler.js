@@ -11,7 +11,7 @@ $(document).ready( () => {
 var sendRequest = q => $.ajax({
   url: 'http://127.0.0.1:8080/' + q,
   type: 'POST',
-  headers: {
-
+  success: function() {
+    
   }
 });

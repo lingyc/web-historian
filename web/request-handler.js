@@ -21,6 +21,20 @@ exports.handleRequest = function (req, res) {
     headers['Content-Type'] = 'text/javascript';
     res.writeHead(200, headers);
     httpHelpers.serveAssets ( res, 'web/inputHandler.js', content => res.end (content) );
+  } else if ( req.url.includes ( '/www.') && req.url.includes ( '.com' ) ) {
+    headers['Content-Type'] = 'text/javascript';
+    res.writeHead(200, headers);
+    httpHelpers.serveArchivedPage( req.url, archivedPage => {
+      
+      if ( archivedPage ) {
+        // Or serve the archived page
+        
+      } else {
+        // Not in there yet, serve loading page
+        console.log('Serving loading page');
+      }
+
+    } );
   } else {
     // ERROR
     console.log( 'error' );
