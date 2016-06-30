@@ -31,7 +31,7 @@ exports.readListOfUrls = function() {
     if ( error ) {
       throw error;
     } else {
-      urlStorage = ( JSON.parse('{' + content + '}') );
+      urlStorage = ( JSON.parse('{' + content.slice(0, content.length - 1) + '}') );
       console.log(urlStorage);
     }
   });
@@ -46,8 +46,11 @@ exports.isUrlInList = function( url ) {
 exports.addUrlToList = function( url ) {
   urlStorage[url] = url;
 
-  // fs write ... JSON.
-  // fs append
+  fs.appendFile(exports.paths.list, `"${urlStorage[url]}":"${url}",`, ( error ) => {
+    if ( error ) {
+      throw error;
+    } 
+  });
 };
 
 exports.isUrlArchived = function() {
