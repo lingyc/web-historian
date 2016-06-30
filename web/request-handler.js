@@ -32,9 +32,22 @@ var actions = {
     req.on('error', err => console.log(err));
 
     req.on('end', () => {
-      archive.addUrlToList ( data.slice(4), () => {} );
+      var query = data.slice(4);
       res.writeHead(302, headers);
-      httpHelpers.serveAssets ( res, 'web/public/loading.html', content => res.end (content) );
+      archive.isUrlInList (query, inList => {
+        if ( inList ) {
+          archive.isUrlArchived ( query, archived => {
+            if ( archived) {
+              httpHelpers.serveAssets ( res, archive.paths.archivedSites + '/' + query, content => res.end (content) );
+            } else {
+              httpHelpers.serveAssets ( res, 'web/public/loading.html', content => res.end (content) );    
+            }
+          });
+        } else {
+          archive.addUrlToList ( query, () => {} );
+          httpHelpers.serveAssets ( res, 'web/public/loading.html', content => res.end (content) );
+        }
+      });
     });
   }
 };

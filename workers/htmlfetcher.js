@@ -4,5 +4,5 @@ var archive = require('../helpers/archive-helpers');
 var download = require('../workers/htmlfetcher');
 
 archive.readListOfUrls( list => {
-  download.downloadUrls( list, null );
+  archive.downloadUrls( list, null );
 });
