@@ -124,36 +124,36 @@ describe('archive helpers', function() {
     });
   });
 
-//   describe('#isUrlArchived', function () {
-//     it('should check if a url is archived', function (done) {
-//       fs.writeFileSync(archive.paths.archivedSites + '/www.example.com', 'blah blah');
+  describe('#isUrlArchived', function () {
+    it('should check if a url is archived', function (done) {
+      fs.writeFileSync(archive.paths.archivedSites + '/www.example.com', 'blah blah');
 
-//       var counter = 0;
-//       var total = 2;
+      var counter = 0;
+      var total = 2;
 
-//       archive.isUrlArchived('www.example.com', function (exists) {
-//         expect(exists).to.be.true;
-//         if (++counter === total) { done(); }
-//       });
+      archive.isUrlArchived('www.example.com', function (exists) {
+        expect(exists).to.be.true;
+        if (++counter === total) { done(); }
+      });
 
-//       archive.isUrlArchived('www.notarchived.com', function (exists) {
-//         expect(exists).to.be.false;
-//         if (++counter === total) { done(); }
-//       });
-//     });
-//   });
+      archive.isUrlArchived('www.notarchived.com', function (exists) {
+        expect(exists).to.be.false;
+        if (++counter === total) { done(); }
+      });
+    });
+  });
 
-//   describe('#downloadUrls', function () {
-//     it('should download all pending urls in the list', function (done) {
-//       var urlArray = ['www.example.com', 'www.google.com'];
-//       archive.downloadUrls(urlArray);
+  describe('#downloadUrls', function () {
+    it('should download all pending urls in the list', function (done) {
+      var urlArray = ['www.example.com', 'www.google.com'];
+      archive.downloadUrls(urlArray);
 
-//       // Ugly hack to wait for all downloads to finish.
-//       setTimeout(function () {
-//         expect(fs.readdirSync(archive.paths.archivedSites)).to.deep.equal(urlArray);
-//         done();
-//       }, 500);
-//     });
-//   });
+      // Ugly hack to wait for all downloads to finish.
+      setTimeout(function () {
+        expect(fs.readdirSync(archive.paths.archivedSites)).to.deep.equal(urlArray);
+        done();
+      }, 500);
+    });
+  });
 });
 

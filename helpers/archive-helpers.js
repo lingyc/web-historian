@@ -54,7 +54,9 @@ exports.addUrlToList = function( url, callback ) {
   });
 };
 
-exports.isUrlArchived = function() {
+exports.isUrlArchived = function(url, callback) {
+  
+  fs.access( exports.paths.archivedSites + '/' + url, fs.F_OK, err => callback(!err));
 };
 
 exports.downloadUrls = function() {
