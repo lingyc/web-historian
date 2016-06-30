@@ -31,7 +31,7 @@ exports.readListOfUrls = function() {
     if ( error ) {
       throw error;
     } else {
-      urlStorage = ( JSON.parse('{' + content.slice(0, content.length - 1) + '}') );
+      urlStorage = ( content.split('\n') );
       console.log(urlStorage);
     }
   });
@@ -40,11 +40,11 @@ exports.readListOfUrls = function() {
 exports.readListOfUrls();
 
 exports.isUrlInList = function( url ) {
-  return urlStorage[url];
+  return urlStorage.indexOf(url) !== -1;
 };
 
 exports.addUrlToList = function( url ) {
-  urlStorage[url] = url;
+  urlStorage.push ( url );
 
   fs.appendFile(exports.paths.list, `${url}\n`, ( error ) => {
     if ( error ) {

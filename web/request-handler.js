@@ -23,14 +23,10 @@ var actions = {
     }
   },
   POST: (req, res) => {
-    var inputData;
-
-    headers['Content-Type'] = 'text/javascript';
-    
+    headers['Content-Type'] = 'text/plain';
     res.writeHead(302, headers);
     httpHelpers.collectData ( req, data => {
-      inputData = data;
-      httpHelpers.serveArchivedPage(data, () => { res.end(); } );
+      archive.addUrlToList(data.slice(4));
     });
 
 

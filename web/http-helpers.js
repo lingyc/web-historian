@@ -38,24 +38,13 @@ exports.serveAssets = function(res, asset, callback) {
 
 // As you progress, keep thinking about what helper functions you can put here!
 exports.serveArchivedPage = ( url, callback ) => {
-  var isUrlInList = archive.isUrlInList;
-  var addUrlToList = archive.addUrlToList;
+  // var isUrlInList = archive.isUrlInList;
+  // var addUrlToList = archive.addUrlToList;
   
-  url = url.slice(4);
-  // Check if we have the url in our list
-  console.log ( 'url to check: ', url );
-  if ( isUrlInList ( url ) ) {
-    console.log('We have it!');
-    // If it is archived, run callback with archivedPage
-    // If it is not, run return nothing
-    callback('Something');
-  } else {
-    console.log('We dont have it =(');
-    // add it to List
-    // Run callback with no args (Return nothing)
-    addUrlToList(url);
-    callback();
-  }
+  // url = url.slice(4);
+
+  // addUrlToList(url);
+  // callback('something');
     
 
 
