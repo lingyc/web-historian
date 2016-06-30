@@ -46,7 +46,7 @@ exports.isUrlInList = function( url ) {
 exports.addUrlToList = function( url ) {
   urlStorage[url] = url;
 
-  fs.appendFile(exports.paths.list, `"${urlStorage[url]}":"${url}",`, ( error ) => {
+  fs.appendFile(exports.paths.list, `${url}\n`, ( error ) => {
     if ( error ) {
       throw error;
     } 

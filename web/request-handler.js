@@ -2,6 +2,7 @@ var path = require('path');
 var archive = require('../helpers/archive-helpers');
 // require more modules/folders here!
 var httpHelpers = require('./http-helpers');
+var fs = require('fs');
 var headers = httpHelpers.headers;
 
 var actions = {
@@ -22,36 +23,42 @@ var actions = {
     }
   },
   POST: (req, res) => {
-    res.writeHead(200, headers);
-    httpHelpers.serveAssets ( res, 'web/public/index.html', content => res.end (content) );
+    var inputData;
+
+    headers['Content-Type'] = 'text/javascript';
+    
+    res.writeHead(302, headers);
+    httpHelpers.collectData ( req, data => {
+      inputData = data;
+      httpHelpers.serveArchivedPage(data, () => { res.end(); } );
+    });
+
+
+
+    // httpHelpers.serveArchivedPage( req.url, archivedPage => {
+      
+    //   if ( archivedPage ) {
+    //     // Or serve the archived page
+    //     res.end( archivedPage );
+    //   } else {
+    //     fs.readFile('web/public/loading.html', 'utf-8', loadingPage => {
+    //       res.end(loadingPage);
+    //     });
+    //     console.log('Serving loading page');
+    //   }
+
+    // } );
   }
 };
 
 exports.handleRequest = function (req, res) {
   // res.end(archive.paths.list);
   console.log ('Making request type', req.method, 'at path:', req.url );
-  
+
   if ( actions[req.method] ) {
     actions[req.method](req, res);
   } else {
     console.log ('Error in handleRequest');
   }
 
-  if ( req.url.includes ( '/www.') && req.url.includes ( '.com' ) ) {
-    headers['Content-Type'] = 'text/javascript';
-    res.writeHead(200, headers);
-    httpHelpers.serveArchivedPage( req.url, archivedPage => {
-      
-      if ( archivedPage ) {
-        // Or serve the archived page
-        
-      } else {
-        // Not in there yet, serve loading page
-        console.log('Serving loading page');
-      }
-
-    } );
-  } else {
-    // ERROR
-  }
 };
