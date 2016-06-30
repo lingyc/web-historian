@@ -24,7 +24,7 @@ var actions = {
     }
   },
   POST: (req, res) => {
-    headers['Content-Type'] = 'text/plain';
+    headers['Content-Type'] = 'text/html';
     var data = '';
 
     req.on('data', chunk => data += chunk);
@@ -32,9 +32,9 @@ var actions = {
     req.on('error', err => console.log(err));
 
     req.on('end', () => {
-      archive.addUrlToList ( data );
-      res.writeHead(201, headers);
-      res.end('success');
+      archive.addUrlToList ( data.slice(4), () => {} );
+      res.writeHead(302, headers);
+      httpHelpers.serveAssets ( res, 'web/public/loading.html', content => res.end (content) );
     });
   }
 };

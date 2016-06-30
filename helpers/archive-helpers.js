@@ -26,31 +26,31 @@ exports.initialize = function(pathsObj) {
 // modularize your code. Keep it clean!
 var urlStorage;
 
-exports.readListOfUrls = function() {
+exports.readListOfUrls = function(callback) {
   fs.readFile(exports.paths.list, 'utf-8', ( error, content ) => {
     if ( error ) {
-      throw error;
+      console.err(error);
     } else {
       urlStorage = ( content.split('\n') );
-      console.log(urlStorage);
+      callback(urlStorage);
     }
   });
 };
 
-exports.readListOfUrls();
+exports.readListOfUrls(() => {} );
 
-exports.isUrlInList = function( url ) {
-  return urlStorage.indexOf(url) !== -1;
+exports.isUrlInList = function( url, callback ) {
+  callback(urlStorage.indexOf(url) !== -1);
 };
 
-exports.addUrlToList = function( url ) {
-  url = url.slice(4);
+exports.addUrlToList = function( url, callback ) {
   urlStorage.push ( url );
 
   fs.appendFile(exports.paths.list, `${url}\n`, ( error ) => {
     if ( error ) {
       throw error;
     } 
+    callback();
   });
 };
 

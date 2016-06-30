@@ -77,52 +77,52 @@ describe('server', function() {
   });
 });
 
-// describe('archive helpers', function() {
-//   describe('#readListOfUrls', function () {
-//     it('should read urls from sites.txt', function (done) {
-//       var urlArray = ['example1.com', 'example2.com'];
-//       fs.writeFileSync(archive.paths.list, urlArray.join('\n'));
+describe('archive helpers', function() {
+  describe('#readListOfUrls', function () {
+    it('should read urls from sites.txt', function (done) {
+      var urlArray = ['example1.com', 'example2.com'];
+      fs.writeFileSync(archive.paths.list, urlArray.join('\n'));
 
-//       archive.readListOfUrls(function(urls) {
-//         expect(urls).to.deep.equal(urlArray);
-//         done();
-//       });
-//     });
-//   });
+      archive.readListOfUrls(function(urls) {
+        expect(urls).to.deep.equal(urlArray);
+        done();
+      });
+    });
+  });
 
-//   describe('#isUrlInList', function () {
-//     it('should check if a url is in the list', function (done) {
-//       var urlArray = ['example1.com', 'example2.com'];
-//       fs.writeFileSync(archive.paths.list, urlArray.join('\n'));
+  describe('#isUrlInList', function () {
+    it('should check if a url is in the list', function (done) {
+      var urlArray = ['example1.com', 'example2.com'];
+      fs.writeFileSync(archive.paths.list, urlArray.join('\n'));
 
-//       var counter = 0;
-//       var total = 2;
+      var counter = 0;
+      var total = 2;
 
-//       archive.isUrlInList('example1.com', function (exists) {
-//         expect(exists).to.be.true;
-//         if (++counter === total) { done(); }
-//       });
+      archive.isUrlInList('example1.com', function (exists) {
+        expect(exists).to.be.true;
+        if (++counter === total) { done(); }
+      });
 
-//       archive.isUrlInList('gibberish', function (exists) {
-//         expect(exists).to.be.false;
-//         if (++counter === total) { done(); }
-//       });
-//     });
-//   });
+      archive.isUrlInList('gibberish', function (exists) {
+        expect(exists).to.be.false;
+        if (++counter === total) { done(); }
+      });
+    });
+  });
 
-//   describe('#addUrlToList', function () {
-//     it('should add a url to the list', function (done) {
-//       var urlArray = ['example1.com', 'example2.com\n'];
-//       fs.writeFileSync(archive.paths.list, urlArray.join('\n'));
+  describe('#addUrlToList', function () {
+    it('should add a url to the list', function (done) {
+      var urlArray = ['example1.com', 'example2.com\n'];
+      fs.writeFileSync(archive.paths.list, urlArray.join('\n'));
 
-//       archive.addUrlToList('someurl.com', function () {
-//         archive.isUrlInList('someurl.com', function (exists) {
-//           expect(exists).to.be.true;
-//           done();
-//         });
-//       });
-//     });
-//   });
+      archive.addUrlToList('someurl.com', function () {
+        archive.isUrlInList('someurl.com', function (exists) {
+          expect(exists).to.be.true;
+          done();
+        });
+      });
+    });
+  });
 
 //   describe('#isUrlArchived', function () {
 //     it('should check if a url is archived', function (done) {
@@ -155,5 +155,5 @@ describe('server', function() {
 //       }, 500);
 //     });
 //   });
-// });
+});
 
