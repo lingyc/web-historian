@@ -44,6 +44,7 @@ exports.isUrlInList = function( url ) {
 };
 
 exports.addUrlToList = function( url ) {
+  url = url.slice(4);
   urlStorage.push ( url );
 
   fs.appendFile(exports.paths.list, `${url}\n`, ( error ) => {

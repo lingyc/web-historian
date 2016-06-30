@@ -5,9 +5,10 @@ var httpHelpers = require('./http-helpers');
 var fs = require('fs');
 var headers = httpHelpers.headers;
 
+
 var actions = {
   GET: (req, res) => {
-    if ( req.url === '/debug?port=5858' || req.url === '/' ) {
+    if ( req.url === '/' ) {
       res.writeHead(200, headers);
       httpHelpers.serveAssets ( res, 'web/public/index.html', content => res.end (content) );
     } else if ( req.url === '/styles.css') {
@@ -24,26 +25,17 @@ var actions = {
   },
   POST: (req, res) => {
     headers['Content-Type'] = 'text/plain';
-    res.writeHead(302, headers);
-    httpHelpers.collectData ( req, data => {
-      archive.addUrlToList(data.slice(4));
+    var data = '';
+
+    req.on('data', chunk => data += chunk);
+
+    req.on('error', err => console.log(err));
+
+    req.on('end', () => {
+      archive.addUrlToList ( data );
+      res.writeHead(201, headers);
+      res.end('success');
     });
-
-
-
-    // httpHelpers.serveArchivedPage( req.url, archivedPage => {
-      
-    //   if ( archivedPage ) {
-    //     // Or serve the archived page
-    //     res.end( archivedPage );
-    //   } else {
-    //     fs.readFile('web/public/loading.html', 'utf-8', loadingPage => {
-    //       res.end(loadingPage);
-    //     });
-    //     console.log('Serving loading page');
-    //   }
-
-    // } );
   }
 };
 

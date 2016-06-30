@@ -21,13 +21,9 @@ exports.readFile = ( asset, callback ) => {
   });
 };
 
-exports.collectData = ( request, callback ) => {
-  var data = '';
+// exports.collectData = ( data ) => {
 
-  request.on('data', chunk => data += chunk);
-
-  request.on('end', () => callback ( data ));
-};
+// };
 
 exports.serveAssets = function(res, asset, callback) {
   // Write some code here that helps serve up your static files!
